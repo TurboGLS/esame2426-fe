@@ -1,3 +1,5 @@
-<div *ngFor="let classroom of classroom$ | async">
+<app-modale (eventaddClass)="addClass($event.title, $event.students)"></app-modale>
+
+<div class="container" *ngFor="let classroom of classroom$ | async">
   <app-classrooms-cards [classroom]="classroom"></app-classrooms-cards>
 </div>

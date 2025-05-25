@@ -11,4 +11,8 @@ export class ClassroomsCardService {
   list() {
     return this.http.get<Classroom[]>('/api/classrooms');
   }
+
+  addClass(classData: { name: string; students: string[] }) {
+    return this.http.post('/api/classrooms/create', classData);
+  }
 }

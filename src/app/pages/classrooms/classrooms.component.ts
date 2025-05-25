@@ -16,6 +16,18 @@ export class ClassroomsComponent {
   protected classSrv = inject(ClassroomsCardService);
   protected authSrv = inject(AuthService);
   protected jwtSrv = inject(JwtService);
+  protected refreshList$ = new BehaviorSubject<void>(undefined);
 
-  public classroom$ = this.classSrv.list();
+  isAuthenticated$ = this.authSrv.isAuthenticated$;
+
+  public classroom$ = this.refreshList$.pipe(
+    switchMap(() => this.classSrv.list())
+  );
+
+  addClass(title: string, students: string[]) {
+    this.classSrv.addClass({ name: title, students: students })
+      .subscribe(() => {
+      this.refreshList$.next();
+    });
+  }
 }

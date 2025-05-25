@@ -13,6 +13,8 @@ import { ClassroomsCardsComponent } from './components/classrooms-cards/classroo
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavUserComponent } from './components/nav-user/nav-user.component';
 import { authInterceptor } from './interceptors/auth.interceptor';
+import { logoutInterceptor } from './interceptors/logout.interceptor';
+import { ModaleComponent } from './components/modale/modale.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { authInterceptor } from './interceptors/auth.interceptor';
     ClassroomsComponent,
     ClassroomsCardsComponent,
     NavbarComponent,
-    NavUserComponent
+    NavUserComponent,
+    ModaleComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { authInterceptor } from './interceptors/auth.interceptor';
   ],
   providers: [
     provideHttpClient(
-      withInterceptors([authInterceptor])
+      withInterceptors([authInterceptor, logoutInterceptor])
     )
   ],
   bootstrap: [AppComponent]

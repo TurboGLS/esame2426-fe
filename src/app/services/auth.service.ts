@@ -22,6 +22,10 @@ export class AuthService {
             distinctUntilChanged()
         );
 
+    constructor() {
+        this.fetchUser().subscribe();
+    }
+
     login(username: string, password: string) {
         return this.http.post<any>('/api/login', { username, password })
             .pipe(
