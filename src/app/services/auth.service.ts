@@ -42,7 +42,7 @@ export class AuthService {
                     return of(null);
                 }),
                 tap(user => this._currentUser$.next(user))
-            )
+            );
     }
 
     logout() {

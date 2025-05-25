@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../entities/user.entity';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-nav-user',
@@ -8,6 +9,8 @@ import { User } from '../../entities/user.entity';
   styleUrl: './nav-user.component.css'
 })
 export class NavUserComponent {
+  protected authSrv = inject(AuthService);
+
   @Input()
   user: User | null = null;
 

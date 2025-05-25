@@ -17,14 +17,10 @@ export class ModaleComponent {
   eventaddClass = new EventEmitter<{ title: string, students: string[] }>();
 
   open(content: TemplateRef<any>) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result) => {
-        this.eventaddClass.emit(result);
-        this.closeResult.set(`Closed with: ${JSON.stringify(result)}`);
-      },
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.catch(
       (reason) => {
         this.closeResult.set(`Dismissed ${this.getDismissReason(reason)}`);
-      },
+      }
     );
   }
 
@@ -41,14 +37,29 @@ export class ModaleComponent {
 
   addClass = this.fb.group({
     title: ['', Validators.required],
-    students: [[]]
+    students: []
   })
 
   submit() {
     if (this.addClass.valid) {
-      this.modalService.dismissAll(this.addClass.value);
+      const formValue = this.addClass.value;
+      const title = formValue.title as string;
+      const studentsString = (formValue.students ?? '') as string;
+
+      const formattedStudents = studentsString
+        .split(',')
+        .map(name => name.trim())
+        .filter(name => name !== '');
+
+      this.eventaddClass.emit({
+        title: title,
+        students: formattedStudents
+      });
+
+      this.modalService.dismissAll();
     } else {
       this.addClass.markAllAsTouched();
     }
   }
+
 }

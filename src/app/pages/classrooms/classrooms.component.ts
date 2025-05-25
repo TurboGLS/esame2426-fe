@@ -12,7 +12,7 @@ import { JwtService } from '../../services/jwt.service';
   templateUrl: './classrooms.component.html',
   styleUrl: './classrooms.component.css'
 })
-export class ClassroomsComponent {
+export class ClassroomsComponent{
   protected classSrv = inject(ClassroomsCardService);
   protected authSrv = inject(AuthService);
   protected jwtSrv = inject(JwtService);
@@ -29,5 +29,9 @@ export class ClassroomsComponent {
       .subscribe(() => {
       this.refreshList$.next();
     });
+  }
+  
+  ngOnInit() {
+    this.authSrv.fetchUser().subscribe();
   }
 }

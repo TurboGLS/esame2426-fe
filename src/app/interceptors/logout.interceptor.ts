@@ -6,7 +6,6 @@ import { AuthService } from '../services/auth.service';
 
 export const logoutInterceptor: HttpInterceptorFn = (req, next) => {
   const authSrv = inject(AuthService);
-  const router = inject(Router);
 
   return next(req).pipe(
     catchError((response: any) => {
